@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imc_calculator/widgets/about.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -8,6 +9,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.info_outline),
+          iconSize: 30,
+          tooltip: 'Informações sobre o IMC',
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const About(),
+              ),
+            );
+          },
+        ),
+      ],
       title: const Center(
           child: Text(
         'Calculadora de IMC',

@@ -16,6 +16,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController controllerPeso = TextEditingController();
   TextEditingController controllerAltura = TextEditingController();
   String resultadoIMC = '';
+  double? imcValue;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -36,13 +37,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     // TextFormField for Peso
                     SizedBox(
-                      width: 300,
+                      width: 150,
                       child: TextFormField(
                         keyboardType: const TextInputType.numberWithOptions(),
                         controller: controllerPeso,
                         decoration: InputDecoration(
                           labelText: 'Peso',
-                          hintText: 'Digite o seu peso em kg',
+                          hintText: 'Peso em kg',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -64,13 +65,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
                     // TextFormField for Altura em cm
                     SizedBox(
-                      width: 300,
+                      width: 150,
                       child: TextFormField(
                         keyboardType: TextInputType.number,
                         controller: controllerAltura,
                         decoration: InputDecoration(
                           labelText: 'Altura',
-                          hintText: 'Digite sua altura em cm',
+                          hintText: 'Altura em cm',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -101,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     const SizedBox(height: 16),
 
                     // IMC Table
-                    if (resultadoIMC.isNotEmpty) const IMCTable(),
+                    if (imcValue != null) IMCTable(imc: imcValue!),
                     const SizedBox(height: 32),
 
                     // Buttons
@@ -122,10 +123,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                   double alturaCm =
                                       double.tryParse(controllerAltura.text) ??
                                           0;
-                                  double alturaM = alturaCm /
-                                      100; // Conversão de cm para metros
+                                  double alturaM = alturaCm / 100;
                                   double resultado = peso / (alturaM * alturaM);
                                   resultadoIMC = resultado.toStringAsFixed(2);
+                                  imcValue = resultado;
                                 });
                               }
                             },
@@ -149,6 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 controllerPeso.clear();
                                 controllerAltura.clear();
                                 resultadoIMC = '';
+                                imcValue = null;
                               });
                             },
                             child: const Text(
